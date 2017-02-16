@@ -1415,6 +1415,12 @@ public class SwipeLayout extends FrameLayout {
                 dispatchSwipeEvent(rect.left, rect.top, dx, dy);
             } else {
                 safeBottomView();
+                // not sure if we should do this when notify is true as well
+                View currentBottomView = getCurrentBottomView();
+                if (currentBottomView != null) {
+                    Rect bottomRect = computeBottomLayoutAreaViaSurface(getShowMode(), rect);
+                    currentBottomView.layout(bottomRect.left, bottomRect.top, bottomRect.right, bottomRect.bottom);
+                }
             }
         }
         invalidate();
